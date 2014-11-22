@@ -5,7 +5,6 @@ node [shape=ellipse]; Producer1; Producer2; Consumer1; Consumer2; Consumer3;
 
 Producer1 -> MsgQ;
 Producer2 -> MsgQ;
-MsgQ -> ConsumerQ;
 MsgQ -> Consumer1;
 MsgQ -> Consumer2;
 MsgQ -> Consumer3;
