@@ -1,12 +1,12 @@
 digraph G 
 {
-node [shape=box]; MsgQ1; MsgQ2; ConsumerQ;
-node [shape=ellipse]; Producer1; Producer2; Scheduler; Consumer1; Consumer2; Consumer3;
+node [shape=box]; MsgQ; 
+node [shape=ellipse]; Producer1; Producer2; Consumer1; Consumer2; Consumer3;
 
-Producer1 -> MsgQ1 -> Scheduler;
-Producer2 -> MsgQ2 -> Scheduler;
-Scheduler -> ConsumerQ;
-ConsumerQ -> Consumer1;
-ConsumerQ -> Consumer2;
-ConsumerQ -> Consumer3;
+Producer1 -> MsgQ;
+Producer2 -> MsgQ;
+MsgQ -> ConsumerQ;
+MsgQ -> Consumer1;
+MsgQ -> Consumer2;
+MsgQ -> Consumer3;
 }
