@@ -5,8 +5,6 @@ import simpy
 import logging
 from collections import namedtuple
 
-import pdb
-
 Msg = namedtuple('Msg', 'id, duration')
 
 class Producer:
@@ -21,7 +19,6 @@ class Producer:
         self.put_count = 0
         self.unit_count = 0
         self.tokens = self.rate
-        self.last_put_time = 0
         self.next_token_refresh_time = self.env.now + 100
         self.env.process(self.run())
 
@@ -29,7 +26,6 @@ class Producer:
         while True:
             logging.debug('%s - tokens:%d' % (self.name, self.tokens))
             msg = Msg(self.next_message_id(), self.msg_duration)
-#            pdb.set_trace()
             if self.tokens < msg.duration:
 #                yield self.env.timeout(msg.duration - self.tokens)
                 yield self.env.timeout(self.next_token_refresh_time - self.env.now)
@@ -44,9 +40,6 @@ class Producer:
                 self.put_count += 1
                 self.unit_count += msg.duration
                 logging.debug("%s put %s at %d" % (self.name, msg, self.env.now))
-
-#            self.tokens += (self.env.now - self.last_put_time) / 100 * self.rate
-#            self.last_put_time = self.env.now
 
     def next_message_id(self):
         return "%s_%s" % (self.name, self.put_count)
